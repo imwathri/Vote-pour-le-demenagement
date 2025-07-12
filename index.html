@@ -96,6 +96,7 @@
   </style>
 </head>
 <body>
+
   <h1>🎁 La Boîte Mystère de Imadha & Nourishtou 💘</h1>
 
   <div id="questionnaire" class="question-container">
@@ -107,7 +108,7 @@
     </div>
 
     <div id="question2" class="question hidden">
-      Question 2 : win b3atna bzf les bisous  ?
+      Question 2 : win b3atna bzf les bisous ?
       <br>
       <button class="btn" onclick="nextQuestion('question2')">Wathsap</button>
       <button class="btn" onclick="nextQuestion('question2')">Telegram</button>
@@ -165,13 +166,10 @@
     }
 
     function choisirPaquet(index) {
-      if (localStorage.getItem("choixFinal")) return;
-
       boutonAudio.pause();
       boutonAudio.currentTime = 0;
 
       const vraiChoix = apps[Math.floor(Math.random() * apps.length)];
-      localStorage.setItem("choixFinal", vraiChoix);
 
       const images = document.querySelectorAll('.paquet-img');
       images.forEach((img, i) => {
@@ -187,25 +185,28 @@
         document.getElementById("choixTexte").innerHTML = `
           💌 Le nouveau QG de <strong>Imadha</strong> & <strong>Nourishtou</strong> est :<br><br>
           <span style="font-size: 2em;">${vraiChoix}</span> 🥳<br><br>
-          Décision éternelle 🌹✨<br>
+          Décision romantique... temporaire 😉<br><br>
+          <button class="btn" onclick="rejouer()">🔁 Rejouer</button>
         `;
 
         makeItRain("fleur");
       }, 2000);
     }
 
-    window.onload = () => {
-      const choix = localStorage.getItem("choixFinal");
-      if (choix) {
-        document.getElementById("questionnaire").classList.add("hidden");
-        document.getElementById("paquetZone").classList.add("hidden");
-        document.getElementById("choixFinal").classList.remove("hidden");
-        document.getElementById("choixTexte").innerHTML = `
-          💌 Le QG déjà scellé de <strong>Imadha</strong> & <strong>Nourishtou</strong> est :<br><br>
-          <span style="font-size: 2em;">${choix}</span> 💖
-        `;
-      }
-    };
+    function rejouer() {
+      document.getElementById("choixFinal").classList.add("hidden");
+      document.getElementById("questionnaire").classList.remove("hidden");
+      document.getElementById("question1").classList.remove("hidden");
+      document.getElementById("question2").classList.add("hidden");
+      document.getElementById("question3").classList.add("hidden");
+
+      const images = document.querySelectorAll('.paquet-img');
+      images.forEach(img => {
+        img.style.opacity = "1";
+        img.style.pointerEvents = "auto";
+        img.style.transform = "none";
+      });
+    }
 
     function makeItRain(type) {
       for (let i = 0; i < 12; i++) {
