@@ -1,77 +1,238 @@
+<!-- Le site d'amour 🥹 -->
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🌸 مهمة خاصة لنوريشتي 🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+  <title>✨Notre Déménagement Secret - Imadha & Nourishtou 💌</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(to right, #ff5f6d, #ffc371);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(135deg, #ffe1ff, #d5faff);
       text-align: center;
-      min-height: 100vh;
-      padding: 20px;
+      overflow-x: hidden;
     }
-    .container {
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 600px;
-    }
+
     h1 {
+      margin-top: 40px;
       font-size: 2.5em;
-      margin-bottom: 20px;
+      color: #ef5eff;
     }
-    p {
-      font-size: 1.3em;
-      margin-bottom: 30px;
+
+    .question-container, .paquet, #choixFinal {
+      margin-top: 40px;
     }
-    button {
-      background-color: #ff69b4;
+
+    .question {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 1em;
       border: none;
-      padding: 15px 30px;
+      background-color: #ff77cc;
       color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      border-radius: 999px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
-    button:hover {
-      background-color: #ff1493;
+
+    .btn:hover {
+      background-color: #ffaad5;
     }
-    #secret {
+
+    .hidden {
       display: none;
+    }
+
+    .falling-heart, .framboise, .fleur {
+      position: fixed;
+      top: -50px;
+      animation: fall linear forwards;
+      font-size: 24px;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .paquet-img {
+      width: 180px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .paquet-img:hover {
+      transform: scale(1.1);
+    }
+
+    audio {
+      display: none;
+    }
+
+    #choixTexte {
+      font-size: 1.8em;
       margin-top: 30px;
-      font-size: 1.2em;
-      background: white;
-      color: #ff1493;
+      color: #ff33aa;
+    }
+
+    /* Badge */
+    .badge {
+      margin-top: 60px;
       padding: 15px;
-      border-radius: 15px;
-    }
-    a {
-      color: #ff1493;
-      text-decoration: none;
+      border-radius: 12px;
+      background: #f7d1ff;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 10px #ff99f7;
       font-weight: bold;
+      font-size: 1.2em;
+      color: #8a2be2;
     }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🌸 إلى نوريشتي الجميلة 🌸</h1>
-    <p>للوصول إلى مفاجأتك الحقيقية... عليك أولاً أن تضغطي على الزر أدناه، فقط إذا كنتِ مستعدة 😏</p>
-    <button onclick="document.getElementById('secret').style.display='block'">🎁 نعم، أنا مستعدة!</button>
-    <div id="secret">
-      هذا هو الرابط السري للمفاجأة الحقيقية :<br><br>
-      <a href="https://imwathri.github.io/Nourishti-birthday-game/" target="_blank">https://imwathri.github.io/Nourishti-birthday-game/</a>
+  <h1>🎁 Imadha & Nourishtou – Le Grand Déménagement 💌</h1>
+
+  <div id="questionnaire" class="question-container">
+    <div id="question1" class="question">
+      Question 1 : KI NQUITIW SNAP HA NETWAHCHOH ?
+      <br>
+      <button class="btn" onclick="nextQuestion('question1')">OUI</button>
+      <button class="btn" onclick="nextQuestion('question1')">NON</button>
+    </div>
+
+    <div id="question2" class="question hidden">
+      Question 2 : POUR LES MESSAGES, WCHNO HIYA LA MEILLEURE APPLICATION  ?
+      <br>
+      <button class="btn" onclick="nextQuestion('question2')">WHATSAPP</button>
+      <button class="btn" onclick="nextQuestion('question2')">Telegram</button>
+    </div>
+
+    <div id="question3" class="question hidden">
+      Dernière Question : Prêt.e pour notre nouvelle maison digitale ? 🏠📱
+      <br>
+      <button class="btn" onclick="startDraw()">Ouvrir le paquet ! 🎁</button>
     </div>
   </div>
+
+  <div class="paquet hidden" id="paquetZone">
+    <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" id="paquet" onclick="reveleChoix()" />
+    <div id="loadingText" style="font-size: 1.2em; margin-top: 15px;">Tirage en cours... 🎲</div>
+  </div>
+
+  <audio id="roueAudio" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+
+  <div id="choixFinal" class="hidden">
+    <p id="choixTexte"></p>
+
+    <!-- 🎖️ Le badge d’amour ici -->
+    <div class="badge" id="badge">
+      ⭐ Site validé par <strong>Imadha</strong> & <strong>Nourishtou</strong> 💘<br>
+      🔐 Engagement éternel jusqu’au prochain déménagement bssahetna 🎉 🎊 😎
+    </div>
+  </div>
+
+  <script>
+    const apps = [
+      "Messenger", "Messenger", "Messenger", // => plus de chances
+      "Instagram",
+      "Telegram",
+      "WhatsApp"
+    ];
+
+    const heartEmojis = ["💖", "💕", "💘", "💗", "💝"];
+    const framboises = ["🍓", "🍓", "🍓"];
+    const fleurs = ["🌸", "🌼", "🌷", "🌺"];
+
+    const drawContainer = document.getElementById("paquetZone");
+    const choixFinalContainer = document.getElementById("choixFinal");
+    const boutonAudio = document.getElementById("roueAudio");
+
+    function nextQuestion(current) {
+      makeItRain("heart");
+      makeItRain("framboise");
+
+      document.getElementById(current).classList.add("hidden");
+
+      if (current === 'question1') {
+        document.getElementById("question2").classList.remove("hidden");
+      }
+      if (current === 'question2') {
+        document.getElementById("question3").classList.remove("hidden");
+      }
+    }
+
+    function startDraw() {
+      makeItRain("heart");
+      makeItRain("fleur");
+      document.getElementById("questionnaire").classList.add("hidden");
+      drawContainer.classList.remove("hidden");
+      boutonAudio.play();
+    }
+
+    function reveleChoix() {
+      if (localStorage.getItem("choixFinal")) return;
+
+      boutonAudio.pause();
+      boutonAudio.currentTime = 0;
+
+      const choix = apps[Math.floor(Math.random() * apps.length)];
+      localStorage.setItem("choixFinal", choix);
+
+      setTimeout(() => {
+        drawContainer.classList.add("hidden");
+        choixFinalContainer.classList.remove("hidden");
+
+        document.getElementById("choixTexte").innerHTML = 
+          `💌 Le nouveau HOME de <strong>Imadha</strong> & <strong>Nourishtou</strong> est : <br><br>
+          <span style="font-size: 2em;">${choix}</span> 🎊<br><br>
+          Pas de retour en arrière maintenant ! 🥹🔐`;
+      }, 2000);
+    }
+
+    window.onload = () => {
+      const choix = localStorage.getItem("choixFinal");
+      if (choix) {
+        document.getElementById("questionnaire").classList.add("hidden");
+        drawContainer.classList.add("hidden");
+        choixFinalContainer.classList.remove("hidden");
+        document.getElementById("choixTexte").innerHTML = `
+          💌 Le nouveau QG de <strong>Imadha</strong> & <strong>Nourishtou</strong> est : <br><br>
+          <span style="font-size: 2em;">${choix}</span> 🎊<br><br>
+          Décision déjà scellée 🧸🔐`;
+      }
+    };
+
+    function makeItRain(type) {
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement("div");
+        el.classList.add(type === "fleur" ? "fleur" : type === "framboise" ? "framboise" : "falling-heart");
+        el.style.left = Math.random() * window.innerWidth + "px";
+
+        switch (type) {
+          case "heart":
+            el.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            break;
+          case "framboise":
+            el.innerText = framboises[Math.floor(Math.random() * framboises.length)];
+            break;
+          case "fleur":
+            el.innerText = fleurs[Math.floor(Math.random() * fleurs.length)];
+            break;
+        }
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+    }
+  </script>
 </body>
 </html>
