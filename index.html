@@ -1,10 +1,8 @@
-<!-- Le site d'amour 🥹 -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>✨Notre Déménagement Secret - Imadha & Nourishtou 💌</title>
+  <title>La Boîte Mystère de Imadha & Nourishtou 💌</title>
   <style>
     body {
       margin: 0;
@@ -63,7 +61,7 @@
     }
 
     .paquet-img {
-      width: 180px;
+      width: 100px;
       cursor: pointer;
       transition: transform 0.4s ease;
     }
@@ -82,7 +80,6 @@
       color: #ff33aa;
     }
 
-    /* Badge */
     .badge {
       margin-top: 60px;
       padding: 15px;
@@ -96,106 +93,104 @@
       font-size: 1.2em;
       color: #8a2be2;
     }
-
   </style>
 </head>
 <body>
-  <h1>🎁 Imadha & Nourishtou – Le Grand Déménagement 💌</h1>
+  <h1>🎁 La Boîte Mystère de Imadha & Nourishtou 💘</h1>
 
   <div id="questionnaire" class="question-container">
     <div id="question1" class="question">
-      Question 1 : KI NQUITIW SNAP HA NETWAHCHOH ?
+      Question 1 : Ha tenssay wch djowezna f snap wela lala ?
       <br>
-      <button class="btn" onclick="nextQuestion('question1')">OUI</button>
+      <button class="btn" onclick="nextQuestion('question1')">OUIIII</button>
       <button class="btn" onclick="nextQuestion('question1')">NON</button>
     </div>
 
     <div id="question2" class="question hidden">
-      Question 2 : POUR LES MESSAGES, WCHNO HIYA LA MEILLEURE APPLICATION  ?
+      Question 2 : win b3atna bzf les bisous  ?
       <br>
-      <button class="btn" onclick="nextQuestion('question2')">WHATSAPP</button>
+      <button class="btn" onclick="nextQuestion('question2')">Wathsap</button>
       <button class="btn" onclick="nextQuestion('question2')">Telegram</button>
     </div>
 
     <div id="question3" class="question hidden">
-      Dernière Question : Prêt.e pour notre nouvelle maison digitale ? 🏠📱
+      Dernière question : Es-tu prêt.e à déménager dans notre nouveau chez nous ? 💖
       <br>
-      <button class="btn" onclick="startDraw()">Ouvrir le paquet ! 🎁</button>
+      <button class="btn" onclick="startDraw()">Oui, allons-y 🎀</button>
     </div>
   </div>
 
   <div class="paquet hidden" id="paquetZone">
-    <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" id="paquet" onclick="reveleChoix()" />
-    <div id="loadingText" style="font-size: 1.2em; margin-top: 15px;">Tirage en cours... 🎲</div>
+    <p>Choisis l’un des 6 paquets mystères 🎁✨</p>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(0)">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(1)">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(2)">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(3)">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(4)">
+      <img src="https://cdn-icons-png.flaticon.com/512/4202/4202840.png" class="paquet-img" onclick="choisirPaquet(5)">
+    </div>
+    <audio id="roueAudio" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
   </div>
-
-  <audio id="roueAudio" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
 
   <div id="choixFinal" class="hidden">
     <p id="choixTexte"></p>
-
-    <!-- 🎖️ Le badge d’amour ici -->
-    <div class="badge" id="badge">
+    <div class="badge">
       ⭐ Site validé par <strong>Imadha</strong> & <strong>Nourishtou</strong> 💘<br>
-      🔐 Engagement éternel jusqu’au prochain déménagement bssahetna 🎉 🎊 😎
+      🔐 Engagement éternel jusqu’au prochain déménagement inchallah 😎
     </div>
   </div>
 
   <script>
-    const apps = [
-      "Messenger", "Messenger", "Messenger", // => plus de chances
-      "Instagram",
-      "Telegram",
-      "WhatsApp"
-    ];
+    const apps = ["Messenger", "Messenger", "Messenger", "Instagram", "Telegram", "WhatsApp"];
+    const coeur = ["💖", "💕", "💘"];
+    const framboises = ["🍓"];
+    const fleurs = ["🌼", "🌸", "🌺", "🌷"];
 
-    const heartEmojis = ["💖", "💕", "💘", "💗", "💝"];
-    const framboises = ["🍓", "🍓", "🍓"];
-    const fleurs = ["🌸", "🌼", "🌷", "🌺"];
-
-    const drawContainer = document.getElementById("paquetZone");
-    const choixFinalContainer = document.getElementById("choixFinal");
     const boutonAudio = document.getElementById("roueAudio");
 
     function nextQuestion(current) {
       makeItRain("heart");
       makeItRain("framboise");
-
       document.getElementById(current).classList.add("hidden");
-
-      if (current === 'question1') {
-        document.getElementById("question2").classList.remove("hidden");
-      }
-      if (current === 'question2') {
-        document.getElementById("question3").classList.remove("hidden");
-      }
+      if (current === "question1") document.getElementById("question2").classList.remove("hidden");
+      if (current === "question2") document.getElementById("question3").classList.remove("hidden");
     }
 
     function startDraw() {
-      makeItRain("heart");
       makeItRain("fleur");
       document.getElementById("questionnaire").classList.add("hidden");
-      drawContainer.classList.remove("hidden");
+      document.getElementById("paquetZone").classList.remove("hidden");
       boutonAudio.play();
     }
 
-    function reveleChoix() {
+    function choisirPaquet(index) {
       if (localStorage.getItem("choixFinal")) return;
 
       boutonAudio.pause();
       boutonAudio.currentTime = 0;
 
-      const choix = apps[Math.floor(Math.random() * apps.length)];
-      localStorage.setItem("choixFinal", choix);
+      const vraiChoix = apps[Math.floor(Math.random() * apps.length)];
+      localStorage.setItem("choixFinal", vraiChoix);
+
+      const images = document.querySelectorAll('.paquet-img');
+      images.forEach((img, i) => {
+        img.style.opacity = i === index ? '1' : '0.3';
+        img.style.pointerEvents = 'none';
+        if (i === index) img.style.transform = 'scale(1.3)';
+      });
 
       setTimeout(() => {
-        drawContainer.classList.add("hidden");
-        choixFinalContainer.classList.remove("hidden");
+        document.getElementById("paquetZone").classList.add("hidden");
+        document.getElementById("choixFinal").classList.remove("hidden");
 
-        document.getElementById("choixTexte").innerHTML = 
-          `💌 Le nouveau HOME de <strong>Imadha</strong> & <strong>Nourishtou</strong> est : <br><br>
-          <span style="font-size: 2em;">${choix}</span> 🎊<br><br>
-          Pas de retour en arrière maintenant ! 🥹🔐`;
+        document.getElementById("choixTexte").innerHTML = `
+          💌 Le nouveau QG de <strong>Imadha</strong> & <strong>Nourishtou</strong> est :<br><br>
+          <span style="font-size: 2em;">${vraiChoix}</span> 🥳<br><br>
+          Décision éternelle 🌹✨<br>
+        `;
+
+        makeItRain("fleur");
       }, 2000);
     }
 
@@ -203,32 +198,28 @@
       const choix = localStorage.getItem("choixFinal");
       if (choix) {
         document.getElementById("questionnaire").classList.add("hidden");
-        drawContainer.classList.add("hidden");
-        choixFinalContainer.classList.remove("hidden");
+        document.getElementById("paquetZone").classList.add("hidden");
+        document.getElementById("choixFinal").classList.remove("hidden");
         document.getElementById("choixTexte").innerHTML = `
-          💌 Le nouveau QG de <strong>Imadha</strong> & <strong>Nourishtou</strong> est : <br><br>
-          <span style="font-size: 2em;">${choix}</span> 🎊<br><br>
-          Décision déjà scellée 🧸🔐`;
+          💌 Le QG déjà scellé de <strong>Imadha</strong> & <strong>Nourishtou</strong> est :<br><br>
+          <span style="font-size: 2em;">${choix}</span> 💖
+        `;
       }
     };
 
     function makeItRain(type) {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 12; i++) {
         const el = document.createElement("div");
-        el.classList.add(type === "fleur" ? "fleur" : type === "framboise" ? "framboise" : "falling-heart");
+        el.classList.add(
+          type === "fleur" ? "fleur" :
+          type === "framboise" ? "framboise" : "falling-heart"
+        );
         el.style.left = Math.random() * window.innerWidth + "px";
-
-        switch (type) {
-          case "heart":
-            el.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            break;
-          case "framboise":
-            el.innerText = framboises[Math.floor(Math.random() * framboises.length)];
-            break;
-          case "fleur":
-            el.innerText = fleurs[Math.floor(Math.random() * fleurs.length)];
-            break;
-        }
+        el.innerText = type === "heart"
+          ? coeur[Math.floor(Math.random() * coeur.length)]
+          : type === "framboise"
+          ? framboises[0]
+          : fleurs[Math.floor(Math.random() * fleurs.length)];
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 3000);
       }
